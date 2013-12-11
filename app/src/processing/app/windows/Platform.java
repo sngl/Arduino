@@ -33,12 +33,15 @@ import processing.app.tools.ExternalProcessExecutor;
 import processing.app.windows.Registry.REGISTRY_ROOT_KEY;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import cc.arduino.packages.discoverers.SerialLister;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
+import java.util.HashMap;
+
 
 
 // http://developer.apple.com/documentation/QuickTime/Conceptual/QT7Win_Update_Guide/Chapter03/chapter_3_section_1.html
@@ -317,21 +320,30 @@ public class Platform extends processing.app.Platform {
 
   @Override
   public String resolveDeviceAttachedTo(String serial, Map<String, TargetPackage> packages, String devicesListOutput) {
-    if (devicesListOutput == null) {
+	
+	String vidPid = null;
+      
+	SerialLister lister = new SerialLister();
+	HashMap<String,String>[] arr = lister.serialPortList();
+	if ( arr.length == 0 ) return null;
+	
+	for (int i = 0; i < arr.length ; i++){
+	
+			if (arr[i].get("port").toUpperCase().contains(serial.toUpperCase())){
+				
+				vidPid = "0X" + arr[i].get("vendorId").toUpperCase().substring(4) + "_0X" + arr[i].get("productId").toUpperCase().substring(4);
+			
+			}  
+  
+  
+		}          
+
+    if (vidPid == null) {
       return super.resolveDeviceAttachedTo(serial, packages, devicesListOutput);
     }
 
-    try {
-      String vidPid = new ListComPortsParser().extractVIDAndPID(devicesListOutput, serial);
-
-      if (vidPid == null) {
-        return super.resolveDeviceAttachedTo(serial, packages, devicesListOutput);
-      }
-
-      return super.resolveDeviceByVendorIdProductId(packages, vidPid);
-    } catch (IOException e) {
-      return super.resolveDeviceAttachedTo(serial, packages, devicesListOutput);
-    }
+    return super.resolveDeviceByVendorIdProductId(packages, vidPid);
+    
   }
 
   /*
