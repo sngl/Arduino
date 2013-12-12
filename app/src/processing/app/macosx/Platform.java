@@ -30,6 +30,7 @@ import processing.app.debug.TargetPackage;
 import processing.app.tools.ExternalProcessExecutor;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import cc.arduino.packages.discoverers.SerialLister;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +38,7 @@ import java.io.*;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.Map;
+import java.util.HashMap;
 
 
 /**
