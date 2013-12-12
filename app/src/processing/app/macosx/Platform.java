@@ -206,34 +206,29 @@ public class Platform extends processing.app.Platform {
 
   @Override
   public String resolveDeviceAttachedTo(String serial, Map<String, TargetPackage> packages, String devicesListOutput) {
-    if (devicesListOutput == null) {
+    String vidPid = null;
+      
+	SerialLister lister = new SerialLister();
+	HashMap<String,String>[] arr = lister.serialPortList();
+	if ( arr.length == 0 ) return null;
+	
+	for (int i = 0; i < arr.length ; i++){
+	
+			if (arr[i].get("port").toUpperCase().contains(serial.toUpperCase())){
+				
+				vidPid = "0X" + arr[i].get("vendorId").toUpperCase().substring(4) + "_0X" + arr[i].get("productId").toUpperCase().substring(4);
+			
+			}  
+  
+  
+		}          
+
+    if (vidPid == null) {
       return super.resolveDeviceAttachedTo(serial, packages, devicesListOutput);
     }
 
-    try {
-      String vidPid = new SystemProfilerParser().extractVIDAndPID(devicesListOutput, serial);
-
-      if (vidPid == null) {
-        return super.resolveDeviceAttachedTo(serial, packages, devicesListOutput);
-      }
-
-      return super.resolveDeviceByVendorIdProductId(packages, vidPid);
-    } catch (IOException e) {
-      return super.resolveDeviceAttachedTo(serial, packages, devicesListOutput);
-    }
+    return super.resolveDeviceByVendorIdProductId(packages, vidPid);
   }
 
-  @Override
-  public String preListAllCandidateDevices() {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    Executor executor = new ExternalProcessExecutor(baos);
 
-    try {
-      CommandLine toDevicePath = CommandLine.parse("/usr/sbin/system_profiler SPUSBDataType");
-      executor.execute(toDevicePath);
-      return new String(baos.toByteArray());
-    } catch (Throwable e) {
-      return super.preListAllCandidateDevices();
-    }
-  }
 }

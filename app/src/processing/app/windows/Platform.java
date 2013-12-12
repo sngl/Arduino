@@ -346,22 +346,4 @@ public class Platform extends processing.app.Platform {
     
   }
 
-  /*
-  Temporarly disabled due to https://github.com/arduino/Arduino/issues/1573
-  @Override
-  public String preListAllCandidateDevices() {
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    Executor executor = new ExternalProcessExecutor(baos);
-
-    try {
-      String listComPorts = new File(System.getProperty("user.dir"), "hardware/tools/listComPorts.exe").getCanonicalPath();
-
-      CommandLine toDevicePath = CommandLine.parse(listComPorts);
-      executor.execute(toDevicePath);
-      return new String(baos.toByteArray());
-    } catch (Throwable e) {
-      return super.preListAllCandidateDevices();
-    }
-  }
-  */
 }
