@@ -264,6 +264,12 @@
     <unzip src="macosx/libastylej-2.03.zip" dest="macosx" overwrite="true"/>
     <copy file="macosx/libastylej/libastylej.jnilib" todir="macosx/work/Arduino.app/Contents/Resources/Java/lib/" />
     <chmod perm="755" file="macosx/work/Arduino.app/Contents/Resources/Java/lib/libastylej.jnilib" />
+    
+    <get src="http://downloads.arduino.cc/listCom.zip" dest="macosx" usetimestamp="true" />
+    <unzip src="macosx/listCom.zip" dest="macosx" overwrite="true"/>
+    <copy file="macosx/libastylej/liblistCom.dylib" todir="macosx/work/Arduino.app/Contents/Resources/Java/lib/" />
+    <chmod perm="755" file="macosx/work/Arduino.app/Contents/Resources/Java/lib/libastylej.jnilib" />
+    
   </target>
 
   <target name="macosx-run" depends="macosx-build" description="Run Mac OS X version">
