@@ -11,8 +11,8 @@ public class SerialLister {
 	
     static {
 	
-        File listComPath = new File(Base.getContentFile("lib"), System.mapLibraryName("listCom"));
-    	String listComPath = listComPath.getAbsolutePath();
+        File listCom = new File(Base.getContentFile("lib"), System.mapLibraryName("listCom"));
+    	String listComPath = listCom.getAbsolutePath();
     	try {
       		System.load(listComPath);
     	} catch (UnsatisfiedLinkError e) {
