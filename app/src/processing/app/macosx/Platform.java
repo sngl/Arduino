@@ -213,12 +213,12 @@ public class Platform extends processing.app.Platform {
 	SerialLister lister = new SerialLister();
 	HashMap<String,String>[] arr = lister.serialPortList();
 	if ( arr.length == 0 ) return null;
-	
+	//if (arr.length != 0) return serial;
 	for (int i = 0; i < arr.length ; i++){
 	
-			if (arr[i].get("port").toUpperCase().contains(serial.substring(12).toUpperCase())){
+			if (arr[i].get("port").toUpperCase().contains(serial.substring(serial.indexOf('.')).toUpperCase())){
 				
-				vidPid = "0X" + arr[i].get("vendorId").toUpperCase().substring(4) + "_0X" + arr[i].get("productId").toUpperCase().substring(4);
+				vidPid = arr[i].get("vendorId").toUpperCase() + "_" + arr[i].get("productId").toUpperCase();
 			
 			}  
   
