@@ -267,8 +267,8 @@
     
     <get src="http://downloads.arduino.cc/listCom.zip" dest="macosx" usetimestamp="true" />
     <unzip src="macosx/listCom.zip" dest="macosx" overwrite="true"/>
-    <copy file="macosx/libastylej/liblistCom.dylib" todir="macosx/work/Arduino.app/Contents/Resources/Java/lib/" />
-    <chmod perm="755" file="macosx/work/Arduino.app/Contents/Resources/Java/lib/libastylej.jnilib" />
+    <copy file="macosx/liblistCom.jnilib" todir="macosx/work/Arduino.app/Contents/Resources/Java/lib/" />
+    <chmod perm="755" file="macosx/work/Arduino.app/Contents/Resources/Java/lib/liblistCom.jnilib" />
     
   </target>
 
