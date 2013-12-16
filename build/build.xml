@@ -680,6 +680,10 @@
     <get src="http://downloads.arduino.cc/libastylej-2.03.zip" dest="windows" usetimestamp="true" />
     <unzip src="windows/libastylej-2.03.zip" dest="windows" overwrite="true"/>
     <copy file="windows/libastylej/AStylej.dll" todir="windows/work/lib" />
+    
+    <get src="http://downloads.arduino.cc/listCom-1.0.0.zip" dest="windows" usetimestamp="true" />
+    <unzip src="windows/listCom-1.0.0.zip" dest="windows" overwrite="true"/>
+    <copy file="windows/listCom.dll" todir="windows/work/lib" />
 
     <!-- Copy bossac.exe tool -->
     <copy todir="windows/work/hardware/tools">
