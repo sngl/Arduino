@@ -279,6 +279,8 @@ void Adafruit_GFX::image(PImage & img, uint16_t x, uint16_t y) {
     } // end pixel
   } // end scanline
 
+  img._bmpFile.close();
+
 }
 
 
